@@ -13,4 +13,6 @@ public interface CardService {
 
     void deleteCard(Long cardId);
 
+    CardResponse updateStatus(Long cardId, String status);
+
 }

@@ -83,6 +83,23 @@ public class CardServiceImpl implements CardService {
         cardRepository.deleteById(cardId);
     }
 
+    /**
+     * @param cardId the card id number
+     * @param status Given card status
+     * @return updated card object
+     */
+    @Override
+    public CardResponse updateStatus(Long cardId, String status) {
+        Card card = cardRepository.findById(cardId).orElseThrow(() ->
+                new ResourceNotFoundException("Card", "card id", String.valueOf(cardId)));
+
+        card.setStatus(status);
+
+        Card updatedCard = cardRepository.save(card);
+
+        return mapToResponse(updatedCard);
+    }
+
     // ---------------- helper ----------------
 
     private void checkInvalidCardType(CreateCardRequest request) {
