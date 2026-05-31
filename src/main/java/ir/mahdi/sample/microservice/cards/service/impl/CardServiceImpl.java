@@ -3,6 +3,7 @@ package ir.mahdi.sample.microservice.cards.service.impl;
 import ir.mahdi.sample.microservice.cards.dto.request.CreateCardRequest;
 import ir.mahdi.sample.microservice.cards.dto.response.CardResponse;
 import ir.mahdi.sample.microservice.cards.entity.Card;
+import ir.mahdi.sample.microservice.cards.exception.CardAlreadyExistsException;
 import ir.mahdi.sample.microservice.cards.reository.CardRepository;
 import ir.mahdi.sample.microservice.cards.service.CardService;
 import lombok.AllArgsConstructor;
@@ -23,8 +24,11 @@ public class CardServiceImpl implements CardService {
     @Override
     public CardResponse createCard(CreateCardRequest request) {
 
-        //1. todo validation
-        // if card exists throw business exception
+        if (cardRepository.existsByCardNumber(request.getCardNumber())) {
+            throw new CardAlreadyExistsException(
+                    request.getCardNumber()
+            );
+        }
 
         // 2. build entity
         Card card = Card.builder()
