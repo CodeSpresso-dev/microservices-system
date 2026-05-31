@@ -1,21 +1,16 @@
 package ir.mahdi.sample.microservice.cards.bdd.steps;
 
 import io.cucumber.java.en.Given;
-import io.cucumber.java.en.Then;
 import ir.mahdi.sample.microservice.cards.bdd.builder.CreateCardRequestBuilder;
 import ir.mahdi.sample.microservice.cards.bdd.context.CardScenarioContext;
 import ir.mahdi.sample.microservice.cards.dto.request.CreateCardRequest;
 import ir.mahdi.sample.microservice.cards.entity.Card;
-import ir.mahdi.sample.microservice.cards.exception.CardAlreadyExistsException;
 import ir.mahdi.sample.microservice.cards.reository.CardRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 @SpringBootTest
-public class CardDuplicateSteps {
+public class PreventDuplicateCardCreationSteps {
 
     @Autowired
     private CardRepository cardRepository;
@@ -47,12 +42,5 @@ public class CardDuplicateSteps {
         req.setCardNumber(cardNumber);
 
         context.setRequest(req);
-    }
-
-    @Then("CardAlreadyExistsException should be thrown")
-    public void thenError() {
-        assertNotNull(context.getException());
-        assertThat(context.getException())
-                .isInstanceOf(CardAlreadyExistsException.class);
     }
 }

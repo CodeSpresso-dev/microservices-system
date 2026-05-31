@@ -15,18 +15,18 @@ Feature: Card Manager
 
     When I request to create a card
 
-    Then CardAlreadyExistsException should be thrown
+    Then "CardAlreadyExistsException" should be thrown
 
   Scenario: Invalid card type
     Given a valid card creation request with card type "SAVINGS"
 
     When I request to create a card
 
-    Then InvalidCardTypeException should be thrown
+    Then "InvalidCardTypeException" should be thrown
 
   Scenario: Invalid expiry date
     Given a valid card creation request with expiry date "2025"
 
     When I request to create a card
 
-    Then InvalidExpiryDateException should be thrown
+    Then "InvalidExpiryDateException" should be thrown

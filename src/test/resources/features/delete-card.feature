@@ -12,4 +12,4 @@ Feature: Delete Card
 
     When I delete the card with id 99999
 
-    Then ResourceNotFoundException should be thrown
+    Then "ResourceNotFoundException" should be thrown
