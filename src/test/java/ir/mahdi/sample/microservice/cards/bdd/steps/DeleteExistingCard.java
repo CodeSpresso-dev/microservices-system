@@ -3,6 +3,7 @@ package ir.mahdi.sample.microservice.cards.bdd.steps;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import ir.mahdi.sample.microservice.cards.bdd.context.CardScenarioContext;
 import ir.mahdi.sample.microservice.cards.entity.Card;
 import ir.mahdi.sample.microservice.cards.reository.CardRepository;
 import ir.mahdi.sample.microservice.cards.service.CardService;
@@ -14,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 @SpringBootTest
 public class DeleteExistingCard {
 
-    private Long cardId;
+    @Autowired
+    private CardScenarioContext context;
 
     @Autowired
     private CardRepository cardRepository;
@@ -37,20 +39,24 @@ public class DeleteExistingCard {
 
         Card saved = cardRepository.save(card);
 
-        cardId = saved.getId();
+        context.setCardId(saved.getId());
     }
 
     @When("I delete the card")
     public void delete_card() {
 
-        cardService.deleteCard(cardId);
+        try {
+            cardService.deleteCard(context.getCardId());
+        } catch (Exception ex) {
+            context.setException(ex);
+        }
     }
 
     @Then("the card should be removed from database")
     public void verify_deleted_card() {
 
         assertFalse(
-                cardRepository.findById(cardId).isPresent()
+                cardRepository.findById(context.getCardId()).isPresent()
         );
     }
 }

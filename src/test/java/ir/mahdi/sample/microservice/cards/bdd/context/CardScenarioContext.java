@@ -17,4 +17,5 @@ public class CardScenarioContext {
     private CardResponse response;
     private Exception exception;
     private String mobileNumber;
+    private Long cardId;
 }
