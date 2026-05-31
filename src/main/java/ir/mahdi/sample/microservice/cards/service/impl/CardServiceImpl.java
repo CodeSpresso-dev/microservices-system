@@ -6,6 +6,7 @@ import ir.mahdi.sample.microservice.cards.entity.Card;
 import ir.mahdi.sample.microservice.cards.exception.CardAlreadyExistsException;
 import ir.mahdi.sample.microservice.cards.exception.InvalidCardTypeException;
 import ir.mahdi.sample.microservice.cards.exception.InvalidExpiryDateException;
+import ir.mahdi.sample.microservice.cards.exception.ResourceNotFoundException;
 import ir.mahdi.sample.microservice.cards.reository.CardRepository;
 import ir.mahdi.sample.microservice.cards.service.CardService;
 import lombok.AllArgsConstructor;
@@ -76,6 +77,9 @@ public class CardServiceImpl implements CardService {
      */
     @Override
     public void deleteCard(Long cardId) {
+
+        cardRepository.findById(cardId).orElseThrow(() -> new ResourceNotFoundException("Card", "card id", String.valueOf(cardId)));
+
         cardRepository.deleteById(cardId);
     }
 
