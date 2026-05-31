@@ -55,7 +55,25 @@ public class CardServiceImpl implements CardService {
         return mapToResponse(saved);
     }
 
-    private static void checkInvalidCardType(CreateCardRequest request) {
+    /**
+     * Retrieves all cards associated with a mobile number.
+     *
+     * @param mobileNumber the customer's mobile number
+     * @return list of cards linked to the given mobile number
+     */
+    @Override
+    public List<CardResponse> fetchCards(String mobileNumber) {
+
+        List<Card> cards = cardRepository.findByMobileNumber(mobileNumber);
+
+        return cards.stream()
+                .map(this::mapToResponse)
+                .toList();
+    }
+
+    // ---------------- helper ----------------
+
+    private void checkInvalidCardType(CreateCardRequest request) {
         if (!VALID_CARD_TYPES.contains(request.getCardType())) {
             throw new InvalidCardTypeException(request.getCardType());
         }
@@ -68,8 +86,6 @@ public class CardServiceImpl implements CardService {
             );
         }
     }
-
-    // ---------------- helper ----------------
 
     private CardResponse mapToResponse(Card card) {
         return CardResponse.builder()
