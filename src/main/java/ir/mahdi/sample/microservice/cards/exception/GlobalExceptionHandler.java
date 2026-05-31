@@ -126,7 +126,7 @@ public class GlobalExceptionHandler {
     // 3. BUSINESS ERROR
     // =========================
     @ExceptionHandler(CardException.class)
-    public ResponseEntity<ApiResponse<Void>> handleAccountException(CardException ex, WebRequest webRequest) {
+    public ResponseEntity<ApiResponse<Void>> handleCardException(CardException ex, WebRequest webRequest) {
 
         HttpStatus errorHttpStatus = ex.getErrorCode().getHttpStatus();
 

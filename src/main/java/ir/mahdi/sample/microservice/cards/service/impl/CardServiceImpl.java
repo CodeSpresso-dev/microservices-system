@@ -4,16 +4,21 @@ import ir.mahdi.sample.microservice.cards.dto.request.CreateCardRequest;
 import ir.mahdi.sample.microservice.cards.dto.response.CardResponse;
 import ir.mahdi.sample.microservice.cards.entity.Card;
 import ir.mahdi.sample.microservice.cards.exception.CardAlreadyExistsException;
+import ir.mahdi.sample.microservice.cards.exception.InvalidCardTypeException;
 import ir.mahdi.sample.microservice.cards.reository.CardRepository;
 import ir.mahdi.sample.microservice.cards.service.CardService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 @AllArgsConstructor
 public class CardServiceImpl implements CardService {
 
     private final CardRepository cardRepository;
+
+    private static final List<String> VALID_CARD_TYPES = List.of("CREDIT", "DEBIT");
 
     /**
      * Creates a new card for the given customer request.
@@ -24,11 +29,9 @@ public class CardServiceImpl implements CardService {
     @Override
     public CardResponse createCard(CreateCardRequest request) {
 
-        if (cardRepository.existsByCardNumber(request.getCardNumber())) {
-            throw new CardAlreadyExistsException(
-                    request.getCardNumber()
-            );
-        }
+        checkInvalidCardType(request);
+
+        checkCardExistence(request);
 
         // 2. build entity
         Card card = Card.builder()
@@ -44,6 +47,20 @@ public class CardServiceImpl implements CardService {
         Card saved = cardRepository.save(card);
 
         return mapToResponse(saved);
+    }
+
+    private static void checkInvalidCardType(CreateCardRequest request) {
+        if (!VALID_CARD_TYPES.contains(request.getCardType())) {
+            throw new InvalidCardTypeException(request.getCardType());
+        }
+    }
+
+    private void checkCardExistence(CreateCardRequest request) {
+        if (cardRepository.existsByCardNumber(request.getCardNumber())) {
+            throw new CardAlreadyExistsException(
+                    request.getCardNumber()
+            );
+        }
     }
 
     // ---------------- helper ----------------
