@@ -71,6 +71,14 @@ public class CardServiceImpl implements CardService {
                 .toList();
     }
 
+    /**
+     * @param cardId the card id number
+     */
+    @Override
+    public void deleteCard(Long cardId) {
+        cardRepository.deleteById(cardId);
+    }
+
     // ---------------- helper ----------------
 
     private void checkInvalidCardType(CreateCardRequest request) {

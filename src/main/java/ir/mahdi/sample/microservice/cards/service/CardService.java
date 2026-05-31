@@ -11,4 +11,6 @@ public interface CardService {
 
     List<CardResponse> fetchCards(String mobileNumber);
 
+    void deleteCard(Long cardId);
+
 }
