@@ -37,6 +37,7 @@ public class CardCommonSteps {
     @Given("card with id {long} does not exist")
     public void card_with_id_does_not_exist(Long id) {
 
+        context.setCardId(id);
         cardRepository.deleteById(id);
     }
 
