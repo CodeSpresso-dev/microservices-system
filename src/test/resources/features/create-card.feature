@@ -12,3 +12,8 @@ Feature: Card Manager
     And a valid card creation request with card number "12054"
     When I request to create a card
     Then CardAlreadyExistsException should be thrown
+
+  Scenario: Invalid card type
+    Given a valid card creation request with card type "SAVINGS"
+    When I request to create a card
+    Then InvalidCardTypeException should be thrown
