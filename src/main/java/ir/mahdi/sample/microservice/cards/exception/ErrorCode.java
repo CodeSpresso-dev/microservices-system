@@ -6,7 +6,8 @@ import org.springframework.http.HttpStatus;
 @Getter
 public enum ErrorCode {
     CARD_ALREADY_EXISTS_EXCEPTION("CARD-001", "error.card.already.exists", HttpStatus.CONFLICT),
-    INVALID_CARD_TYPE_EXCEPTION("CARD-002", "error.card.invalid.card.type", HttpStatus.BAD_REQUEST);
+    INVALID_CARD_TYPE_EXCEPTION("CARD-002", "error.card.invalid.card.type", HttpStatus.BAD_REQUEST),
+    INVALID_EXPIRY_DATE_EXCEPTION("CARD-003", "error.card.invalid.expiry.date", HttpStatus.BAD_REQUEST);;
 
     private final String code;
     private final String messageKey;

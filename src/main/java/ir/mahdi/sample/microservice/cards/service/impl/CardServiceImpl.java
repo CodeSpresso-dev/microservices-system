@@ -5,6 +5,7 @@ import ir.mahdi.sample.microservice.cards.dto.response.CardResponse;
 import ir.mahdi.sample.microservice.cards.entity.Card;
 import ir.mahdi.sample.microservice.cards.exception.CardAlreadyExistsException;
 import ir.mahdi.sample.microservice.cards.exception.InvalidCardTypeException;
+import ir.mahdi.sample.microservice.cards.exception.InvalidExpiryDateException;
 import ir.mahdi.sample.microservice.cards.reository.CardRepository;
 import ir.mahdi.sample.microservice.cards.service.CardService;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,11 @@ public class CardServiceImpl implements CardService {
     public CardResponse createCard(CreateCardRequest request) {
 
         checkInvalidCardType(request);
+
+        if (request.getExpiryDate() == null ||
+                request.getExpiryDate().length() != 6) {
+            throw new InvalidExpiryDateException(request.getExpiryDate());
+        }
 
         checkCardExistence(request);
 
