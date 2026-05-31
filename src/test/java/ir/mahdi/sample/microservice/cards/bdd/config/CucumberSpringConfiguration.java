@@ -1,4 +1,4 @@
-package ir.mahdi.sample.microservice.cards.bdd;
+package ir.mahdi.sample.microservice.cards.bdd.config;
 
 import io.cucumber.spring.CucumberContextConfiguration;
 import ir.mahdi.sample.microservice.cards.CardsApplication;
