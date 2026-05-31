@@ -18,7 +18,7 @@ public class ClientContext {
     private String ipAddress;
 }
 
-/**
+/*
  * we can use add into this context these fields for feature applications features
  *
  * fraud detection
