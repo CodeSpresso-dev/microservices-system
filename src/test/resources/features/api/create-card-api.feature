@@ -10,7 +10,6 @@ Feature: Card API
     And api response should contain cardId
 
   Scenario: Create duplicate card through API
-
     Given a card with card number "1234567892548962" already exists
 
     And a valid card creation request with existence card number
@@ -18,3 +17,10 @@ Feature: Card API
     When I send POST request to "/api/cards"
 
     Then api response status should be 409
+
+  Scenario: Invalid card type
+    Given a valid card creation request with card type "UNKNOWN"
+
+    When I send POST request to "/api/cards"
+
+    Then api response status should be 400
