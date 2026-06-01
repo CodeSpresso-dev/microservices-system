@@ -7,3 +7,9 @@ Feature: Get Cards API
 
     Then api response status should be 200
     And api response should contain 2 cards
+
+  Scenario: No cards found for mobile number
+    When I send GET request to "/api/cards/09999999999"
+
+    Then api response status should be 200
+    And api response should contain 0 cards
