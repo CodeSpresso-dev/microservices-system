@@ -7,3 +7,10 @@ Feature: Card API Validation
 
     Then api response should contain validation error code "VALIDATION_ERROR"
     And api response status should be 400
+
+  Scenario: Missing mobile number
+    Given a valid card creation request without mobile number
+
+    When I send POST request to "/api/cards"
+
+    Then api response status should be 400
