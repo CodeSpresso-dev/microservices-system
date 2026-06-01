@@ -1,4 +1,4 @@
-package ir.mahdi.sample.microservice.cards.bdd.steps.service;
+package ir.mahdi.sample.microservice.cards.bdd.steps.common;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
