@@ -8,10 +8,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @RestController
@@ -28,5 +27,14 @@ public class CardController {
     ) {
         CardResponse response = cardService.createCard(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
+    }
+
+    // ---------------- GET CARDS ----------------
+    @GetMapping("/{mobileNumber}")
+    public ResponseEntity<List<CardResponse>> getCards(
+            @PathVariable String mobileNumber
+    ) {
+        List<CardResponse> cards = cardService.fetchCards(mobileNumber);
+        return ResponseEntity.status(HttpStatus.OK).body(cards);
     }
 }
