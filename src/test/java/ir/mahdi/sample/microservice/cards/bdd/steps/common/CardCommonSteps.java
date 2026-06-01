@@ -1,5 +1,6 @@
 package ir.mahdi.sample.microservice.cards.bdd.steps.common;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -8,13 +9,27 @@ import ir.mahdi.sample.microservice.cards.entity.Card;
 import ir.mahdi.sample.microservice.cards.reository.CardRepository;
 import ir.mahdi.sample.microservice.cards.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
+@AutoConfigureMockMvc
 public class CardCommonSteps {
+
+    private final String baseUrl = "http://localhost:8080";
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Autowired
     private CardScenarioContext context;
@@ -80,6 +95,43 @@ public class CardCommonSteps {
         assertEquals(
                 exceptionName,
                 context.getException().getClass().getSimpleName()
+        );
+    }
+
+
+    // =========================
+    // 2. API SIDE
+    // =========================
+    @When("I send POST request to {string}")
+    public void send_post_request(String url)
+            throws Exception {
+
+        url = baseUrl + url;
+
+        String requestBody =
+                objectMapper.writeValueAsString(
+                        context.getRequest()
+                );
+
+        MvcResult mvcResult =
+                mockMvc.perform(
+                                post(url)
+                                        .contentType(MediaType.APPLICATION_JSON)
+                                        .content(requestBody)
+                        )
+                        .andReturn();
+
+        context.setMvcResult(mvcResult);
+    }
+
+    @Then("api response status should be {int}")
+    public void response_status_should_be(Integer expectedStatus) {
+
+        assertEquals(
+                expectedStatus,
+                context.getMvcResult()
+                        .getResponse()
+                        .getStatus()
         );
     }
 

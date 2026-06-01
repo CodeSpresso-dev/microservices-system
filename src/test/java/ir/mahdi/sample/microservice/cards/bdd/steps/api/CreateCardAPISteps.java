@@ -20,13 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
-@AutoConfigureMockMvc
 public class CreateCardAPISteps {
-
-    private String baseUrl = "http://localhost:8080";
-
-    @Autowired
-    private MockMvc mockMvc;
 
     @Autowired
     private ObjectMapper objectMapper;
@@ -40,39 +34,6 @@ public class CreateCardAPISteps {
         CreateCardRequest req = CreateCardRequestBuilder.valid();
 
         context.setRequest(req);
-    }
-
-    @When("I send POST request to {string}")
-    public void send_post_request(String url)
-            throws Exception {
-
-        url = baseUrl + url;
-
-        String requestBody =
-                objectMapper.writeValueAsString(
-                        context.getRequest()
-                );
-
-        MvcResult mvcResult =
-                mockMvc.perform(
-                                post(url)
-                                        .contentType(MediaType.APPLICATION_JSON)
-                                        .content(requestBody)
-                        )
-                        .andReturn();
-
-        context.setMvcResult(mvcResult);
-    }
-
-    @Then("api response status should be {int}")
-    public void response_status_should_be(Integer expectedStatus) {
-
-        assertEquals(
-                expectedStatus,
-                context.getMvcResult()
-                        .getResponse()
-                        .getStatus()
-        );
     }
 
     @Then("api response should contain cardId")
