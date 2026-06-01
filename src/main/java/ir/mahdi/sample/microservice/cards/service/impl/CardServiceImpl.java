@@ -3,10 +3,7 @@ package ir.mahdi.sample.microservice.cards.service.impl;
 import ir.mahdi.sample.microservice.cards.dto.request.CreateCardRequest;
 import ir.mahdi.sample.microservice.cards.dto.response.CardResponse;
 import ir.mahdi.sample.microservice.cards.entity.Card;
-import ir.mahdi.sample.microservice.cards.exception.CardAlreadyExistsException;
-import ir.mahdi.sample.microservice.cards.exception.InvalidCardTypeException;
-import ir.mahdi.sample.microservice.cards.exception.InvalidExpiryDateException;
-import ir.mahdi.sample.microservice.cards.exception.ResourceNotFoundException;
+import ir.mahdi.sample.microservice.cards.exception.*;
 import ir.mahdi.sample.microservice.cards.reository.CardRepository;
 import ir.mahdi.sample.microservice.cards.service.CardService;
 import lombok.AllArgsConstructor;
@@ -21,6 +18,8 @@ public class CardServiceImpl implements CardService {
     private final CardRepository cardRepository;
 
     private static final List<String> VALID_CARD_TYPES = List.of("CREDIT", "DEBIT");
+
+    private static final List<String> VALID_CARD_STATUS = List.of("ACTIVE", "BLOCKED", "INACTIVE");
 
     /**
      * Creates a new card for the given customer request.
@@ -90,14 +89,28 @@ public class CardServiceImpl implements CardService {
      */
     @Override
     public CardResponse updateStatus(Long cardId, String status) {
-        Card card = cardRepository.findById(cardId).orElseThrow(() ->
-                new ResourceNotFoundException("Card", "card id", String.valueOf(cardId)));
+
+        checkInvalidStatus(status);
+
+        Card card = checkCardExistence(cardId);
 
         card.setStatus(status);
 
         Card updatedCard = cardRepository.save(card);
 
         return mapToResponse(updatedCard);
+    }
+
+    private Card checkCardExistence(Long cardId) {
+        Card card = cardRepository.findById(cardId).orElseThrow(() ->
+                new ResourceNotFoundException("Card", "card id", String.valueOf(cardId)));
+        return card;
+    }
+
+    private static void checkInvalidStatus(String status) {
+        if (!VALID_CARD_STATUS.contains(status)) {
+            throw new InvalidCardStatusException(status);
+        }
     }
 
     // ---------------- helper ----------------
