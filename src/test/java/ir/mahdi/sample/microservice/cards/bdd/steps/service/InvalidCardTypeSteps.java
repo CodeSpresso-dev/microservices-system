@@ -19,6 +19,6 @@ public class InvalidCardTypeSteps {
         CreateCardRequest req = CreateCardRequestBuilder.valid();
         req.setCardType(cardType);
 
-        context.setRequest(req);
+        context.setCreateCardRequest(req);
     }
 }

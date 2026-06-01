@@ -27,18 +27,18 @@ public class CardStepDefinitions {
         request.setCvv("453");
         request.setExpiryDate("202605");
         request.setCardType("DEBIT");
-        context.setRequest(request);
+        context.setCreateCardRequest(request);
     }
 
 
     @Then("the card should be created successfully")
     public void assert_created() {
-        assertNotNull(context.getResponse());
+        assertNotNull(context.getCardResponse());
     }
 
     @Then("response should contain cardId")
     public void assert_card_id() {
-        assertNotNull(context.getResponse().getCardId());
-        assertTrue(context.getResponse().getCardId() > 0);
+        assertNotNull(context.getCardResponse().getCardId());
+        assertTrue(context.getCardResponse().getCardId() > 0);
     }
 }

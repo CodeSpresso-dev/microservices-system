@@ -36,7 +36,7 @@ public class CreateDuplicateCardAPISteps {
         CreateCardRequest req = CreateCardRequestBuilder.valid();
         req.setCardNumber(this.cardNumber);
 
-        context.setRequest(req);
+        context.setCreateCardRequest(req);
     }
 
 }

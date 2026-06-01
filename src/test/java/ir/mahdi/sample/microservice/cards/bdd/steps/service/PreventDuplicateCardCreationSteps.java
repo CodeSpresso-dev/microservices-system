@@ -41,6 +41,6 @@ public class PreventDuplicateCardCreationSteps {
         CreateCardRequest req = CreateCardRequestBuilder.valid();
         req.setCardNumber(cardNumber);
 
-        context.setRequest(req);
+        context.setCreateCardRequest(req);
     }
 }

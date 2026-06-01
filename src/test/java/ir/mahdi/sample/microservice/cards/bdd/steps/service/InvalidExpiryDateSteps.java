@@ -19,6 +19,6 @@ public class InvalidExpiryDateSteps {
         CreateCardRequest req = CreateCardRequestBuilder.valid();
         req.setExpiryDate(expiryDate);
 
-        context.setRequest(req);
+        context.setCreateCardRequest(req);
     }
 }

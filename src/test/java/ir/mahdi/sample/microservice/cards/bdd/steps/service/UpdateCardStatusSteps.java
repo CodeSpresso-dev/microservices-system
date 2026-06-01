@@ -6,7 +6,6 @@ import ir.mahdi.sample.microservice.cards.bdd.builder.CardBuilder;
 import ir.mahdi.sample.microservice.cards.bdd.context.CardScenarioContext;
 import ir.mahdi.sample.microservice.cards.entity.Card;
 import ir.mahdi.sample.microservice.cards.reository.CardRepository;
-import ir.mahdi.sample.microservice.cards.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -22,9 +21,6 @@ public class UpdateCardStatusSteps {
     @Autowired
     private CardScenarioContext context;
 
-    @Autowired
-    private CardService cardService;
-
     @Given("I request to create a card with status {string}")
     public void create_a_card_with_status_(String status) {
 
@@ -39,11 +35,11 @@ public class UpdateCardStatusSteps {
     @Then("card status should be {string}")
     public void card_status_should_be_(String expectedStatus) {
 
-        assertNotNull(context.getResponse());
+        assertNotNull(context.getCardResponse());
 
         assertEquals(
                 expectedStatus,
-                context.getResponse().getStatus()
+                context.getCardResponse().getStatus()
         );
     }
 }

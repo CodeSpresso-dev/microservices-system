@@ -20,7 +20,7 @@ public class CardApiValidationInvalidCVV {
         CreateCardRequest req = CreateCardRequestBuilder.valid();
         req.setCvv(cvv);
 
-        context.setRequest(req);
+        context.setCreateCardRequest(req);
     }
 
 }
