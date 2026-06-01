@@ -13,6 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 
 @SpringBootTest
@@ -49,6 +50,18 @@ public class CardApiSteps {
         } catch (Exception ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @When("I send GET request to {string}")
+    public void send_get_request(String url) throws Exception {
+
+        MvcResult mvcResult = mockMvc.perform(
+                        get(url)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andReturn();
+
+        context.setMvcResult(mvcResult);
     }
 
     @Then("api response status should be {int}")
