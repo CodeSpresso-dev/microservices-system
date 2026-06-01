@@ -13,3 +13,10 @@ Feature: Update Card Status
     When I update card status to BLOCKED
 
     Then "ResourceNotFoundException" should be thrown
+
+  Scenario: Update to a invalid card status
+    Given a card exists
+
+    When I update card status to "UNKNOWN"
+
+    Then "InvalidCardStatusException" should be thrown

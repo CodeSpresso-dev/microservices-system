@@ -37,13 +37,6 @@ public class UpdateCardStatusSteps {
         context.setCardId(savedCard.getId());
     }
 
-    @When("I update card status to {string}")
-    public void update_card_status_to_(String updatedStatus) {
-        context.setResponse(
-                cardService.updateStatus(context.getCardId(), updatedStatus)
-        );
-    }
-
     @Then("card status should be {string}")
     public void card_status_should_be_(String expectedStatus) {
 

@@ -24,24 +24,6 @@ public class DeleteExistingCard {
     @Autowired
     private CardService cardService;
 
-    @Given("a card exists")
-    public void a_card_exists() {
-
-        Card card = Card.builder()
-                .mobileNumber("09123456789")
-                .cardHolderName("Mehdi")
-                .cardNumber("55555")
-                .cvv("123")
-                .expiryDate("202605")
-                .cardType("DEBIT")
-                .status("ACTIVE")
-                .build();
-
-        Card saved = cardRepository.save(card);
-
-        context.setCardId(saved.getId());
-    }
-
     @When("I delete the card")
     public void delete_card() {
 
