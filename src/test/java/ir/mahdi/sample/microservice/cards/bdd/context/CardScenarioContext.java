@@ -6,6 +6,7 @@ import ir.mahdi.sample.microservice.cards.dto.response.CardResponse;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.stereotype.Component;
+import org.springframework.test.web.servlet.MvcResult;
 
 @Component
 @ScenarioScope
@@ -18,4 +19,5 @@ public class CardScenarioContext {
     private Exception exception;
     private String mobileNumber;
     private Long cardId;
+    private MvcResult mvcResult;
 }

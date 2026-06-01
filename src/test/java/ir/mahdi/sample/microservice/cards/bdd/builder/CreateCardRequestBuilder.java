@@ -10,7 +10,7 @@ public class CreateCardRequestBuilder {
 
         request.setMobileNumber("09123456789");
         request.setCardHolderName("Mehdi");
-        request.setCardNumber("123456789");
+        request.setCardNumber("1234567892548962");
         request.setCvv("123");
         request.setExpiryDate("202605");
         request.setCardType("DEBIT");
