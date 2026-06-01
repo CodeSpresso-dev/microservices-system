@@ -1,8 +1,7 @@
 Feature: Card Manager
 
   Scenario: Successfully create a card
-    Given a customer with mobile number "09123456789"
-    And a valid card creation request
+    Given a valid card creation request with mobile number "09123456789"
 
     When I request to create a card
 

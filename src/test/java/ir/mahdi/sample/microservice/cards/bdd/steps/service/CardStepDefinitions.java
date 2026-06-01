@@ -18,15 +18,10 @@ public class CardStepDefinitions {
     @Autowired
     private CardScenarioContext context;
 
-    @Given("a customer with mobile number {string}")
-    public void customer_with_mobile(String mobile) {
-        context.setMobileNumber(mobile);
-    }
-
-    @Given("a valid card creation request")
-    public void valid_request() {
+    @Given("a valid card creation request with mobile number {string}")
+    public void valid_card_creation_request_with_mobile_number(String mobile) {
         CreateCardRequest request = new CreateCardRequest();
-        request.setMobileNumber(context.getMobileNumber());
+        request.setMobileNumber(mobile);
         request.setCardHolderName("Mehdi");
         request.setCardNumber("12054");
         request.setCvv("453");
