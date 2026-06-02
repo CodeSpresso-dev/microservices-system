@@ -24,3 +24,11 @@ Feature: Card API
     When I send POST request to "/api/cards"
 
     Then api response status should be 400
+
+  Scenario: Create card through API and persist in database
+    Given a valid card creation request
+
+    When I send POST request to "/api/cards"
+
+    Then api response status should be 201
+    And card should be stored in database
