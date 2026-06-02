@@ -17,5 +17,5 @@ import static io.cucumber.junit.platform.engine.Constants.PLUGIN_PROPERTY_NAME;
         "ir.mahdi.sample.microservice.cards.bdd.config.container," +
         "ir.mahdi.sample.microservice.cards.bdd.hooks")
 @ConfigurationParameter(key = PLUGIN_PROPERTY_NAME, value = "pretty")
-public class CucumberCardApiBddITRunner {
+public class CucumberCardApiBddITTest {
 }
