@@ -1,4 +1,4 @@
-name: Debug CI
+name: Cards Service CI
 
 on: [push]
 
@@ -8,3 +8,27 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: echo "CI IS WORKING"
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+          cache: maven
+
+      - name: Verify Java
+        run: |
+            java -version
+            javac -version
+            mvn -version
+
+      - name: Build & Test (mvn verify)
+        run: mvn clean verify
