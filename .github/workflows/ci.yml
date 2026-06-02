@@ -23,5 +23,11 @@ jobs:
           java-version: 21
           cache: maven
 
+      - name: Verify Java
+        run: |
+            java -version
+            javac -version
+            mvn -version
+
       - name: Build & Test (mvn verify)
         run: mvn clean verify
