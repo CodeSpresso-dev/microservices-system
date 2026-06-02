@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+  open-in-view: false
+  datasource:
+    hikari:
+      max-lifetime: 1800000
+      keepalive-time: 300000
+
+  sql:
+    init:
+      mode: never
+
+logging:
+  level:
+    org.testcontainers: INFO
