@@ -1,13 +1,12 @@
 name: Cards Service CI
 
-on: [push]
+on:
+  push:
+    branches: [ "master", "develop" ]
+  pull_request:
+    branches: [ "master" ]
 
 jobs:
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - run: echo "CI IS WORKING"
   build:
 
     runs-on: ubuntu-latest
