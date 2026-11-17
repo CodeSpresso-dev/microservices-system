@@ -33,7 +33,7 @@ public class CardServiceImpl implements CardService {
         checkInvalidCardType(request);
 
         if (request.getExpiryDate() == null ||
-                request.getExpiryDate().length() != 6) {
+                !request.getExpiryDate().matches("\\d{6}")) {
             throw new InvalidExpiryDateException(request.getExpiryDate());
         }
 
