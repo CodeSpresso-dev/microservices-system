@@ -29,3 +29,17 @@ Feature: Card Manager
     When I request to create a card
 
     Then "InvalidExpiryDateException" should be thrown
+
+  Scenario: Nonnumeric expiry date
+    Given a valid card creation request with expiry date "2026AB"
+
+    When I request to create a card
+
+    Then "InvalidExpiryDateException" should be thrown
+
+  Scenario: Six-digit expiry date is accepted
+    Given a valid card creation request with expiry date "202712"
+
+    When I request to create a card
+
+    Then the card should be created successfully
